@@ -4,9 +4,12 @@ Created on 23-05-2026 at 9:05 pm, successfully created github repo and initializ
 
 Happy Coding Everyone!
 
-Chosen Commodities, stocks, crypto currencies:
-ATHERENERG.NS  
-ADANIPOWER.NS
-HINDCOPPER.NS
-BTC-INR
-ETH-INR
+## Selected Assets
+
+| Type | Ticker | Asset Name |
+|------|------|------|
+| Stock | `ATHERENERG.NS` | Ather Energy |
+| Stock | `ADANIPOWER.NS` | Adani Power |
+| Stock | `HINDCOPPER.NS` | Hindustan Copper |
+| Crypto | `BTC-INR` | Bitcoin |
+| Crypto | `ETH-INR` | Ethereum |
