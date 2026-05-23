@@ -3,3 +3,10 @@
 Created on 23-05-2026 at 9:05 pm, successfully created github repo and initialized git.
 
 Happy Coding Everyone!
+
+Chosen Commodities, stocks, crypto currencies:
+ATHERENERG.NS  
+ADANIPOWER.NS
+HINDCOPPER.NS
+BTC-INR
+ETH-INR
