@@ -11,5 +11,5 @@ Happy Coding Everyone!
 | Stock | `ATHERENERG.NS` | Ather Energy |
 | Stock | `ADANIPOWER.NS` | Adani Power |
 | Stock | `HINDCOPPER.NS` | Hindustan Copper |
-| Crypto | `BTC-INR` | Bitcoin |
-| Crypto | `ETH-INR` | Ethereum |
+| Stock | `NTPC.NS` | NTPC Ltd. |
+| Stock | `TATAPOWER.NS` | Tata Power Company Ltd. |
