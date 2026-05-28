@@ -17,7 +17,7 @@ Happy Coding Everyone!
 # Data Pipeline
 * Fetches 1 year of historical OHLCV data for 5 major NSE stocks (Ather Energy, Adani Power, Hindustan Copper, NTPC, Tata Power).
 
-  | Function Name | Ticker | Company Name |
+| Function Name | Ticker | Company Name |
 | :--- | :--- | :--- |
 | `cleaned_stock1()` | `ATHERENERG.NS` | Ather Energy |
 | `cleaned_stock2()` | `ADANIPOWER.NS` | Adani Power |
