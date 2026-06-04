@@ -1,122 +1,34 @@
 import pandas as pd
 import yfinance as yf
 
-# ATHER ENERGY
+def fetch_stock_data(stock, period = '5y'):
+    ticker_name = yf.Ticker(stock)
+    data = ticker_name.history(period = period)
 
-def ATHERENERG():
-    ticker1 = yf.Ticker('ATHERENERG.NS')
-    info1 = ticker1.history(period='1y')
+    dtf = data[['Open', 'High', 'Low', 'Close', 'Volume']].copy()
+    dtf.index = dtf.index.date
+    dtf.index.name = 'Date'
 
-    ohlcv_df = info1[['Open', 'High', 'Low', 'Close', 'Volume']].copy()
+    return dtf
 
-    ohlcv_df.index = ohlcv_df.index.date
-    ohlcv_df.index.name = 'Date'
+def engineer_features(df):
+    df['Return_5Day'] = df['Close'].pct_change(5)
+    df['SMA200'] = df['Close'].rolling(200).mean()
+    df['Distance_SMA200'] = (df['Close'] - df['SMA200']) / df['SMA200']
+    df['Actual_Future_Return'] = df['Return_5Day'].shift(-5)
+    df.drop(columns = ['SMA200'], inplace = True)
 
-    ohlcv_df.columns = [f"{col}" for col in ohlcv_df.columns]
+    return df
 
-    print(ohlcv_df)
+tickers = ['POWERGRID.NS', 'ADANIPOWER.NS', 'HINDCOPPER.NS', 'NTPC.NS', 'TATAPOWER.NS']
 
-    return ohlcv_df
+all_dfs = []
+for ticker in tickers:
+    df = fetch_stock_data(ticker)
+    df = engineer_features(df)
+    df = df.reset_index()
+    df['Ticker'] = ticker
+    all_dfs.append(df)
 
-
-# ADANI POWER
-
-def ADANIPOWER():
-    ticker2 = yf.Ticker('ADANIPOWER.NS')
-    info2 = ticker2.history(period='1y')
-
-    ohlcv_df = info2[['Open', 'High', 'Low', 'Close', 'Volume']].copy()
-
-    ohlcv_df.index = ohlcv_df.index.date
-    ohlcv_df.index.name = 'Date'
-
-    ohlcv_df.columns = [f"{col}" for col in ohlcv_df.columns]
-
-    print("\n--- ADANIPOWER.NS Full Data ---")
-    print(ohlcv_df)
-    return ohlcv_df
-
-# HINDUSTAN COPPER
-
-def HINDCOPPER():
-    ticker3 = yf.Ticker('HINDCOPPER.NS')
-    info3 = ticker3.history(period='1y')
-
-    ohlcv_df = info3[['Open', 'High', 'Low', 'Close', 'Volume']].copy()
-
-    ohlcv_df.index = ohlcv_df.index.date
-    ohlcv_df.index.name = 'Date'
-
-    ohlcv_df.columns = [f"{col}" for col in ohlcv_df.columns]
-
-    print("\n--- HINDCOPPER.NS Full Data ---")
-    print(ohlcv_df)
-    return ohlcv_df
-
-
-# NTPC
-
-def NTPC():
-    ticker4 = yf.Ticker('NTPC.NS')
-    info4 = ticker4.history(period='1y')
-
-    ohlcv_df = info4[['Open', 'High', 'Low', 'Close', 'Volume']].copy()
-
-    ohlcv_df.index = ohlcv_df.index.date
-    ohlcv_df.index.name = 'Date'
-
-    ohlcv_df.columns = [f"{col}" for col in ohlcv_df.columns]
-
-    print("\n--- NTPC.NS Full Data ---")
-    print(ohlcv_df)
-    return ohlcv_df
-
-# TATA POWER
-
-def TATAPOWER():
-    ticker5 = yf.Ticker('TATAPOWER.NS')
-    info5 = ticker5.history(period='1y')
-
-    ohlcv_df = info5[['Open', 'High', 'Low', 'Close', 'Volume']].copy()
-
-    ohlcv_df.index = ohlcv_df.index.date
-    ohlcv_df.index.name = 'Date'
-
-    ohlcv_df.columns = [f"{col}" for col in ohlcv_df.columns]
-
-    print("\n--- TATAPOWER.NS Full Data ---")
-    print(ohlcv_df)
-    return ohlcv_df
-
-
-
-
-
-# 1. Capture the dataframes returned by your functions
-df1 = ATHERENERG()
-df2 = ADANIPOWER()
-df3 = HINDCOPPER()
-df4 = NTPC()
-df5 = TATAPOWER()
-
-
-df1 = df1.reset_index()
-df1['Ticker'] = 'ATHERENERG.NS'
-
-df2 = df2.reset_index()
-df2['Ticker'] = 'ADANIPOWER.NS'
-
-df3 = df3.reset_index()
-df3['Ticker'] = 'HINDCOPPER.NS'
-
-df4 = df4.reset_index()
-df4['Ticker'] = 'NTPC.NS'
-
-df5 = df5.reset_index()
-df5['Ticker'] = 'TATAPOWER.NS'
-
-
-final_df = pd.concat([df1, df2, df3, df4, df5], ignore_index=True)
-
-
-final_df.to_csv('final_data.csv', index=False, sep=',')
+final_df = pd.concat(all_dfs, ignore_index=True)
+final_df.to_csv('./data_pipeline.csv', index = False)
