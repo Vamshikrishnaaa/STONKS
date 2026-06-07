@@ -1,14 +1,18 @@
-import matplotlib.pyplot as plt # type: ignore
-import pandas as pd  # type: ignore
+import matplotlib.pyplot as plt 
+import pandas as pd  
 
 df=pd.read_csv('../data/processed/final_rankings.csv')
 
-x=list(df['Predicted_Return'])
-y=list(df['Actual_Future_Return'])
-
-plt.plot(x,y,marker='o',markersize='4')
+plt.barh(df['Ticker'], df['Predicted_Return'])
+plt.xlabel('Predicted Return')
+plt.title('Predicted Stock Rankings')
+plt.tight_layout()
+plt.savefig('../graphs/pred_graph.png')
 plt.show()
 
-tickers=list(df['Ticker'])
-plt.bar(tickers,x,width=0.6,color='blue')
+plt.barh(df['Ticker'], df['Actual_Future_Return'])
+plt.xlabel('Actual Return')
+plt.title('Actual Stock Rankings')
+plt.tight_layout()
+plt.savefig('../graphs/actual_graph.png')
 plt.show()
