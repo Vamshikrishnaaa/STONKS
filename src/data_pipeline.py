@@ -32,4 +32,4 @@ for ticker in tickers:
     all_dfs.append(df)
 
 final_df = pd.concat(all_dfs, ignore_index=True)
-final_df.to_csv('../data/processed/market_data.csv', index = False)
+final_df.to_csv('data/processed/market_data.csv', index = False)
