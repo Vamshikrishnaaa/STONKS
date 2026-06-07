@@ -15,10 +15,10 @@ def fetch_stock_data(stock, period = '5y'):
     return dtf
 
 def engineer_features(dtf):
-    dtf['Return_5Day'] = df['Close'].pct_change(5)
-    dtf['SMA200'] = df['Close'].rolling(200).mean()
-    dtf['Distance_SMA200'] = (df['Close'] - df['SMA200']) / df['SMA200']
-    dtf['Actual_Future_Return'] = df['Return_5Day'].shift(-5)
+    dtf['Return_5Day'] = dtf['Close'].pct_change(5)
+    dtf['SMA200'] = dtf['Close'].rolling(200).mean()
+    dtf['Distance_SMA200'] = (dtf['Close'] - dtf['SMA200']) / dtf['SMA200']
+    dtf['Actual_Future_Return'] = dtf['Return_5Day'].shift(-5)
     dtf.drop(columns = ['SMA200'], inplace = True)
 
     return dtf
