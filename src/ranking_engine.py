@@ -1,5 +1,5 @@
-import pandas as pd
-from sklearn.linear_model import LinearRegression
+import pandas as pd # type: ignore
+from sklearn.linear_model import LinearRegression # type: ignore
 
 data = pd.read_csv('../data/processed/market_data.csv')
 tickers = ['POWERGRID.NS', 'ADANIPOWER.NS', 'HINDCOPPER.NS', 'NTPC.NS', 'TATAPOWER.NS']
